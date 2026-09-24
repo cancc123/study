@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#faf9f7">
+<script src="/function/common/theme.js"></script>
+<title>-本站由Can制作callio~</title>
+<link rel="stylesheet" href="/function/common/index.css">
+<link rel="stylesheet" href="/function/common/sidebar.css">
+</head>
+<body>
+<div class="page">
+
+<div class="topbar">
+  <div class="row1">
+    <div class="titles">
+      <div class="kicker">FULL CYCLE / CHECKLIST</div>
+      <h1>160天打卡清单-本站由Can制作callio~</h1>
+    </div>
+    <span class="ring" aria-hidden="true">
+      <svg viewBox="0 0 40 40">
+        <circle cx="20" cy="20" r="16.5" fill="none" style="stroke:var(--line,#e7e5e4)" stroke-width="4"/>
+        <circle id="ringFg" cx="20" cy="20" r="16.5" fill="none" style="stroke:var(--accent,#b0342c)" stroke-width="4" stroke-linecap="round" stroke-dasharray="103.67" stroke-dashoffset="103.67" transform="rotate(-90 20 20)"/>
+      </svg>
+      <b id="pct">0%</b>
+    </span>
+  </div>
+  <div class="row2">
+    <span class="stat">已完成 <b id="doneN">0</b> / <span id="totalN">0</span> 项</span>
+    <span id="authSlot"></span>
+    <label class="pick">启程日<input type="date" id="startPick" value="2026-09-09"></label>
+    <span class="btns">
+      <button id="goToday">今天</button>
+      <button id="expandAll">全部展开</button>
+      <button id="collapseAll">全部收起</button>
+      <button id="resetAll">重置全部</button>
+    </span>
+  </div>
+  <div class="hint" id="startHint"></div>
+</div>
+
+<section class="ovwrap" aria-label="全局学习进度预览">
+  <div class="ov-head">
+    <span class="ov-title">GLOBAL PROGRESS / 全局进度预览</span>
+    <span class="ov-total" id="ovTotal"><b>0</b> / 0 · 0%</span>
+  </div>
+  <div class="ov-now" id="ovNow"></div>
+  <div id="ovStrip"></div>
+</section>
+
+<section class="mates" aria-label="同学学习进度">
+  <div class="mt-head">
+    <span class="mt-title">STUDY MATES / 同学进度</span>
+    <span class="mt-sub" id="mtSub">未登录</span>
+  </div>
+  <div id="matesStrip"></div>
+</section>
+
+<div id="app"></div>
+
+<div class="note">
+  <!-- <p><b>三条纪律：</b>1. 周日晚把完成率发我，连续两周低于 70% 必须调整计划；2. Day 106 之前不动真题（摸底那套 2020 年除外）；3. 测试日安排在每 7 天的休息日，不达验收线不惩罚，但错题必须发我分析。</p> -->
+  <p><b>试卷分工：</b>日常练习与双周测用<b>柏木配套试卷</b>，阶段测试用柏木模拟卷，冲刺期才动真题。</p>
+  <p><b>训练时间已确认：</b><span class="ok">✅ 周一至周六每天 14:00–18:00 训练，周日全天不训练。</span>本清单全部课表均按此节律排定；启程日选周三，休息/测试日正好落在周日，其他启程日休息日会随之偏移（见顶栏提示）。</p>
+  <p><b>冲刺之后（<span id="afterDate"></span> 至考试日）：</b>进补充期每周一轮四科全真模拟（柏木模拟卷与真题轮换），考后错题回流错题本；每日降载保持手感（数学只做选填、政治滚动背诵、英语 30 词 + 1 篇阅读、作文每周 1 篇）。不再新增打卡项，以错题本标星题清零为完成标准，<b>守 300 · 冲 320</b>。</p>
+</div>
+
+<footer>
+  <span>全程打卡清单 · Day 1 至 160 · <span id="fRange"></span></span>
+  <span>柏木体育单招课本 + 配套试卷</span>
+</footer>
+
+</div>
+
+<script src="/function/common/sidebar.js"></script>
+<script src="/function/checklist/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#faf9f7">
+<script src="/function/common/theme.js"></script>
+<title>用户设置 · 体育单招打卡系统</title>
+<link rel="stylesheet" href="/function/common/index.css">
+</head>
+<body>
+<div class="authwrap">
+  <div class="authcard">
+    <div class="kicker">PROFILE / 用户设置</div>
+    <h1 id="setName">…</h1>
+    <div class="set-ava-row">
+      <div class="set-ava" id="avaBox"><span class="ava ava-lg" id="avaLetter">?</span></div>
+      <div class="set-ava-ops">
+        <label class="setbtn solid" for="avaFile">上传照片</label>
+        <input type="file" id="avaFile" accept="image/jpeg,image/png,image/webp" hidden>
+        <button type="button" class="setbtn" id="avaRemove" hidden>移除头像</button>
+        <span class="settip">支持 JPG / PNG / WebP，自动居中裁剪为圆形并压缩至 256×256</span>
+      </div>
+    </div>
+    <div class="autherr" id="setErr" role="alert"></div>
+    <div class="authok" id="setOk" role="status"></div>
+    <a class="backlink" href="/">← 返回打卡清单</a>
+  </div>
+</div>
+<script src="/function/settings/settings.js"></script>
+</body>
+</html>

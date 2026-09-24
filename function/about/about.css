@@ -1,0 +1,27 @@
+/* ============================================================
+   关于本站 · 复用全局朱砂玻璃 token（common/index.css）
+   ============================================================ */
+.aboutcard{width:min(480px,100%);}
+
+/* 站长信息头 */
+.ab-hero{display:flex;align-items:center;gap:12px;margin-top:14px;}
+.ab-logo{width:52px;height:52px;border-radius:14px;object-fit:cover;display:block;box-shadow:var(--gshadow,0 8px 24px rgba(28,25,23,.14)),inset 0 1px 0 var(--ghl,rgba(255,255,255,.55));border:1px solid var(--gline,rgba(28,25,23,.1));flex-shrink:0;background:var(--accent,#d97a8c);}
+.ab-who{display:flex;flex-direction:column;gap:3px;min-width:0;}
+.ab-who b{font-size:14.5px;color:var(--ink,#1c1917);}
+.ab-who span{font-size:12px;color:var(--muted,#78716c);}
+.ab-views{font-variant-numeric:tabular-nums;}
+.ab-views b{color:var(--accent,#d97a8c);font-weight:800;}
+
+/* 联系方式行 */
+.ab-h{font-family:var(--mono,monospace);font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--muted,#78716c);margin:22px 0 10px;}
+.ab-row{display:flex;align-items:center;gap:10px;background:var(--chip,rgba(255,255,255,.55));border:1px solid var(--gline,rgba(28,25,23,.1));box-shadow:inset 0 1px 0 var(--ghl,rgba(255,255,255,.55));border-radius:10px;padding:11px 12px;margin-bottom:8px;}
+.ab-k{font-size:12px;font-weight:800;color:var(--muted,#78716c);width:34px;flex-shrink:0;}
+.ab-v{flex:1;min-width:0;font-size:14px;font-weight:700;color:var(--ink,#1c1917);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ab-link{color:var(--accent,#d97a8c);text-decoration:none;}
+.ab-link:hover{text-decoration:underline;text-underline-offset:3px;}
+.ab-copy{font-family:var(--sans,system-ui);font-size:11.5px;font-weight:700;color:var(--muted,#78716c);background:var(--chip,rgba(255,255,255,.6));border:1px solid var(--gline,rgba(28,25,23,.1));border-radius:999px;padding:4px 11px;cursor:pointer;flex-shrink:0;transition:color .15s var(--ease-out,ease),border-color .15s var(--ease-out,ease),transform .12s var(--ease-out,ease);}
+.ab-copy:hover{color:var(--accent,#d97a8c);border-color:var(--accent-line,rgba(217,122,140,.35));}
+.ab-copy:active{transform:scale(.96);}
+.ab-copy.done{color:var(--accent,#d97a8c);border-color:var(--accent-line,rgba(217,122,140,.35));}
+
+.ab-note{font-size:12px;color:var(--muted,#78716c);line-height:1.8;margin-top:14px;}

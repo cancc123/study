@@ -1,0 +1,48 @@
+/* ============================================================
+   API 文档页 · 复用全局朱砂玻璃 token（common/index.css）
+   ============================================================ */
+.apiwrap{width:min(880px,100%);margin:0 auto;padding:34px 16px calc(40px + env(safe-area-inset-bottom,0px));}
+.apicard{position:relative;overflow:hidden;background:var(--glass-hi);border:1px solid var(--gline);border-radius:20px;box-shadow:var(--gshadow-lift),var(--gedge);-webkit-backdrop-filter:var(--blur-strong);backdrop-filter:var(--blur-strong);padding:28px 26px 24px;}
+.apicard::before{content:"";position:absolute;pointer-events:none;top:0;left:0;height:1px;width:46%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.95) 50%,transparent);transform:translateX(-110%);animation:edgeline 9s var(--ease-in-out) infinite;}
+.apicard h1{font-size:21px;font-weight:800;letter-spacing:.02em;margin:4px 0 0;}
+.api-sub{font-size:12.5px;color:var(--muted);margin:6px 0 0;}
+
+/* 锚点导航 */
+.api-nav{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px;}
+.api-nav a{font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);text-decoration:none;background:var(--chip);border:1px solid var(--gline);border-radius:999px;padding:5px 12px;transition:color .15s var(--ease-out),border-color .15s var(--ease-out);}
+.api-nav a:hover{color:var(--accent);border-color:var(--accent-line,rgba(176,52,44,.35));}
+
+/* 章节 */
+.apicard h2{font-size:15.5px;font-weight:800;color:var(--ink);margin:26px 0 10px;padding-top:14px;border-top:1px solid var(--gline);}
+.api-nav + h2{border-top:none;padding-top:0;}
+.apicard h3{font-size:13px;font-weight:800;color:var(--muted);margin:14px 0 8px;}
+.apicard p{font-size:13.5px;line-height:1.85;color:var(--ink);margin:0 0 10px;}
+.apicard p b{color:var(--accent);}
+.apicard code{font-family:var(--mono);font-size:11.5px;background:var(--chip);border:1px solid var(--gline);border-radius:6px;padding:1px 6px;word-break:break-all;color:var(--ink);}
+.api-warn{font-size:12.5px;color:var(--accent);background:var(--chip);border:1px solid var(--accent-line,rgba(176,52,44,.25));border-radius:10px;padding:9px 12px;}
+.api-note{font-size:12px;color:var(--muted);}
+
+/* 代码块 + 复制按钮 */
+.code{position:relative;background:var(--chip);border:1px solid var(--gline);border-radius:12px;padding:12px 40px 12px 14px;margin:8px 0 12px;font-family:var(--mono);font-size:12px;line-height:1.75;color:var(--ink);overflow-x:auto;white-space:pre;}
+.ccopy{position:absolute;top:6px;right:6px;font-family:var(--sans);font-size:10.5px;font-weight:700;color:var(--muted);background:var(--glass-hi,var(--chip));border:1px solid var(--gline);border-radius:999px;padding:3px 9px;cursor:pointer;transition:color .15s var(--ease-out),border-color .15s var(--ease-out),transform .12s var(--ease-out);}
+.ccopy:hover{color:var(--accent);border-color:var(--accent-line,rgba(176,52,44,.35));}
+.ccopy:active{transform:scale(.94);}
+.ccopy.done{color:var(--accent);border-color:var(--accent-line,rgba(176,52,44,.35));}
+
+/* 字段表格 */
+.api-t{width:100%;border-collapse:collapse;margin:6px 0 14px;}
+.api-t td,.api-t th{border-top:1px solid var(--gline);padding:8px 10px;text-align:left;vertical-align:top;font-size:12.5px;line-height:1.7;}
+.api-t th{width:120px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--muted);white-space:nowrap;}
+.api-t td{color:var(--ink);}
+.api-t td b{color:var(--accent);}
+
+/* 折叠示例 */
+.api-fold{margin:4px 0 10px;}
+.api-fold summary{cursor:pointer;font-size:12.5px;font-weight:700;color:var(--muted);user-select:none;}
+.api-fold summary:hover{color:var(--accent);}
+.api-fold[open] summary{margin-bottom:6px;}
+
+@media(max-width:560px){
+  .apicard{padding:22px 16px 18px;}
+  .api-t th{width:92px;}
+}

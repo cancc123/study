@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#faf9f7">
+<script src="/function/common/theme.js"></script>
+<title>登录</title>
+<link rel="stylesheet" href="/function/common/index.css">
+</head>
+<body>
+<div class="authwrap">
+  <div class="authcard">
+    <div class="kicker">STUDY TOGETHER / 登录</div>
+    <h1>登录</h1>
+    <div class="authtabs" role="tablist">
+      <button type="button" id="tabLogin" class="on">登录</button>
+      <button type="button" id="tabReg">注册</button>
+    </div>
+    <form id="authForm">
+      <label>用户名
+        <input id="fUser" autocomplete="username" maxlength="20" required>
+      </label>
+      <label id="nickRow" hidden>昵称（选填，同学进度里显示）
+        <input id="fNick" maxlength="12" autocomplete="nickname">
+      </label>
+      <label>密码
+        <input id="fPass" type="password" autocomplete="current-password" required>
+      </label>
+      <div class="autherr" id="authErr" role="alert"></div>
+      <button type="submit" class="authbtn" id="authGo">登 录</button>
+    </form>
+    <a class="backlink" href="/">← 返回打卡清单</a>
+  </div>
+</div>
+<script src="/function/login/login.js"></script>
+</body>
+</html>

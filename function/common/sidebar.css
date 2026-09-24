@@ -1,0 +1,68 @@
+/* ============================================================
+   左侧可折叠功能区（共享组件）
+   桌面端：固定左栏 56px（仅图标）⇄ 208px（图标 + 名称）
+   手机端：抽屉式（默认隐藏，左下角 FAB 呼出）
+   ============================================================ */
+
+.srail{position:fixed;top:0;left:0;bottom:0;width:56px;z-index:80;background:var(--topbar-bg);-webkit-backdrop-filter:var(--blur-strong);backdrop-filter:var(--blur-strong);border-right:1px solid var(--gline-soft);box-shadow:var(--gedge),10px 0 30px -22px rgba(28,25,23,.3);display:flex;flex-direction:column;align-items:stretch;padding:10px 0;transition:width .22s var(--ease-out),transform .22s var(--ease-out);overflow:hidden;}
+body.sb-open .srail{width:200px;}
+
+/* 折叠/展开按钮 */
+.s-toggle{flex-shrink:0;width:36px;height:36px;margin:2px 10px;border:1px solid var(--gline);border-radius:var(--r-m);background:var(--chip);box-shadow:inset 0 1px 0 var(--ghl);color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:border-color .15s var(--ease-out),transform .12s var(--ease-out),background-color .15s var(--ease-out);}
+.s-toggle:active{transform:scale(.94);}
+.s-toggle svg{width:16px;height:16px;transition:transform .22s var(--ease-out);}
+body.sb-open .s-toggle svg{transform:rotate(180deg);}
+
+/* 功能项 */
+.s-body{display:flex;flex-direction:column;gap:4px;margin-top:10px;padding:0 10px;}
+.s-item{position:relative;display:flex;align-items:center;gap:10px;height:40px;padding:0 10px;border-radius:var(--r-m);color:var(--ink-soft);text-decoration:none;white-space:nowrap;transition:background-color .15s var(--ease-out),color .15s var(--ease-out);}
+.s-item svg{width:19px;height:19px;flex-shrink:0;}
+.s-name{font-size:12.5px;font-weight:700;opacity:0;transform:translateX(-4px);transition:opacity .18s var(--ease-out),transform .18s var(--ease-out);overflow:hidden;text-overflow:ellipsis;}
+body.sb-open .s-name{opacity:1;transform:none;}
+.s-item.active{background:var(--accent-bg);color:var(--accent);}
+.s-item.active .s-name{color:var(--accent);}
+
+/* 待复习徽标 */
+.s-badge{position:absolute;top:6px;left:26px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:9.5px;font-weight:700;line-height:16px;text-align:center;transition:opacity .18s var(--ease-out);}
+body.sb-open .s-badge{top:12px;left:auto;right:10px;}
+.s-badge[hidden]{display:none;}
+
+/* 折叠态悬停提示（桌面端） */
+@media (hover:hover) and (pointer:fine){
+  .s-item:hover{background:var(--chip-hover);color:var(--ink);}
+  .s-item.active:hover{background:var(--accent-bg);color:var(--accent);}
+  .s-toggle:hover{border-color:var(--line-strong);color:var(--ink);}
+}
+
+/* 页面主体让位（桌面端） */
+@media (min-width:901px){
+  body{padding-left:56px;transition:padding-left .22s var(--ease-out);}
+  body.sb-open{padding-left:200px;}
+}
+
+/* 手机端：FAB + 抽屉 */
+.s-fab{display:none;}
+.s-scrim{display:none;}
+@media (max-width:900px){
+  body.sb-open .srail{width:200px;}
+  .srail{transform:translateX(-100%);box-shadow:var(--gshadow-lift),var(--gedge);background:var(--mobile-surface);}
+  body.sb-open .srail{transform:none;}
+  .s-toggle{display:none;}
+  .s-name{opacity:1;transform:none;}
+  .s-badge{top:12px;left:auto;right:10px;}
+  .s-fab{display:flex;position:fixed;left:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:79;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;align-items:center;justify-content:center;box-shadow:0 4px 14px -2px rgba(176,52,44,.4);transition:transform .15s var(--ease-out),opacity .2s var(--ease-out);}
+  .s-fab:active{transform:scale(.92);}
+  .s-fab svg{width:20px;height:20px;}
+  body.sb-open .s-fab{opacity:0;pointer-events:none;}
+  .s-scrim{display:block;position:fixed;inset:0;z-index:75;background:rgba(28,25,23,.28);opacity:0;pointer-events:none;transition:opacity .22s var(--ease-out);}
+  body.sb-open .s-scrim{opacity:1;pointer-events:auto;}
+}
+
+/* 降级：无 backdrop-filter 时提高栏体不透明度 */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .srail{background:var(--fallback);}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .srail,.s-name,.s-toggle svg,body{transition:none;}
+}

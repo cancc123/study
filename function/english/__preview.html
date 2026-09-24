@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#faf9f7">
+<script>/* 预览专用：网络全部桩化，不触碰任何真实账号数据 */window.fetch=function(){return Promise.reject(new Error("offline-preview"));};</script>
+<script src="/function/common/theme.js"></script>
+<title>PREVIEW · 单词背诵</title>
+<link rel="stylesheet" href="/function/common/sidebar.css">
+<link rel="stylesheet" href="english.css">
+</head>
+<body>
+<div class="page">
+
+<header class="eh">
+  <div class="eh-row">
+    <div class="titles">
+      <div class="kicker">VOCAB / MEMORY</div>
+      <h1>单词背诵</h1>
+    </div>
+    <a class="mechip" id="meChip" href="/settings.html" hidden></a>
+  </div>
+</header>
+
+<nav class="etabs" id="etabs" aria-label="功能页签">
+  <button type="button" data-tab="home" class="on">今日</button>
+  <button type="button" data-tab="lib">词库</button>
+  <button type="button" data-tab="read">阅读</button>
+  <button type="button" data-tab="stats">统计</button>
+</nav>
+
+<main>
+  <section id="tab-home"><div id="homeBox"></div>
+    <div class="panel slim" id="vmates" hidden></div>
+  </section>
+
+  <section id="tab-lib" hidden>
+    <div class="statrow" id="libStats"></div>
+    <div class="libtabs" id="libTabs">
+      <button type="button" data-f="all" class="on">全部</button>
+      <button type="button" data-f="due">待复习</button>
+      <button type="button" data-f="new">生词</button>
+      <button type="button" data-f="todo">未学习</button>
+      <button type="button" data-f="strong">已巩固</button>
+    </div>
+    <input id="search" class="search" autocomplete="off" placeholder="搜索单词或释义…">
+    <div id="libList"></div>
+  </section>
+
+  <section id="tab-stats" hidden>
+    <div id="statsBox"></div>
+  </section>
+
+  <section id="tab-read" hidden>
+    <div id="readBox"></div>
+  </section>
+
+  <section id="tab-study" hidden>
+    <div id="studyBox"></div>
+  </section>
+
+  <section id="tab-quiz" hidden>
+    <div id="quizBox"></div>
+  </section>
+</main>
+
+<!-- <footer class="ef">艾宾浩斯节奏 1 · 2 · 4 · 7 · 15 · 30 天</footer> -->
+
+</div>
+
+<script src="/function/english/words-data.js"></script>
+<script src="/function/english/phrases-data.js"></script>
+<script src="/function/english/reading/articles.js"></script>
+<script src="/function/common/sidebar.js"></script>
+<script src="/function/english/english.js"></script>
+<script>
+(function(){
+  var V=window.__vocab,now=Date.now();
+  V._setBook(["ache","storm","shadow","gently","silence","twilight","breeze","petal","dawn","dusk","ember","frost","glow","hush","ivory"]);
+  V.applyServerData([
+    {w:"advertisement",stage:1,due:now-1000,added:now-3*864e5,last:now-2*864e5,ok:2,ng:0,seed:1,ipa:"/ˌædvərˈtaɪzmənt/",pos:"n.",zh:"广告；宣传",ex:"Advertisements were everywhere.",exZh:"处处都是广告。"},
+    {w:"airplane",stage:3,due:now+5*864e5,added:now-9*864e5,last:now-864e5,ok:5,ng:1,seed:1,ipa:"/ˈerpleɪn/",pos:"n.",zh:"飞机",ex:"Before there were airplanes, people dreamed of flying.",exZh:"在飞机被发明出来之前，人们就已经梦想着飞行了。"},
+    {w:"sunset",stage:2,due:now+864e5,added:now-2*864e5,last:now-864e5,ok:3,ng:1,seed:1,ipa:"/ˈsʌnset/",pos:"n.",zh:"日落；傍晚",ex:"We watched the sunset by the sea.",exZh:"我们在海边看日落。"}
+  ],{cursor:0,settings:{dailyNew:15},dailyLog:{}});
+  V.adoptUser({username:"preview",displayName:"预览",avatar:false});
+  var q=new URLSearchParams(location.search);
+  if(q.get("theme")==="dark"||q.get("theme")==="light")window.__theme.set(q.get("theme"));
+  if(window.__theme.PALETTES.some(function(p){return p.id===q.get("accent");}))window.__theme.setAccent(q.get("accent"));
+  V._fastMode();/* 预览可直拍三轮各面 */
+  var v=q.get("view")||"study";
+  if(v==="study"){V.switchTab("study");V.startSession();}
+  else if(v==="r1d"){V.switchTab("study");V.startSession();document.querySelector("#studyBox .fopt[data-ok='1']").click();}
+  else if(v==="r2"){V.switchTab("study");V.startSession();V._gotoTask("advertisement",2);}
+  else if(v==="r2d"){V.switchTab("study");V.startSession();V._gotoTask("advertisement",2);document.querySelector("#studyBox #fops2 [data-k='1']").click();}
+  else if(v==="r3"){V.switchTab("study");V.startSession();V._gotoTask("advertisement",3);}
+  else if(v==="r3d"){V.switchTab("study");V.startSession();V._gotoTask("advertisement",3);document.querySelector("#studyBox #fops2 [data-k='1']").click();}
+  else if(v==="quiz"){V.switchTab("quiz");V.startQuiz();}
+  else{V.switchTab(v);}
+})();
+</script>
+</body>
+</html>

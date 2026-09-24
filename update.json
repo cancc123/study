@@ -1,0 +1,7 @@
+{
+  "versionCode": 1,
+  "versionName": "1.0.0",
+  "apkUrl": "https://study.lovecacx.icu/apk/StudyPad-1.0.0.apk",
+  "sha256": "ac6fb5dc35973052acc7f4a211850e73ba612bb7dc5080655c9e05778c8edf81",
+  "notes": "首个版本：完整内置站点内容（离线可用）+ 云端账号/单词/进度同步，全面屏沉浸式，适配小米平板 6 Pro 与 Android 16。"
+}

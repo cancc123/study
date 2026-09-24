@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#faf9f7">
+<script src="/function/common/theme.js"></script>
+<title>API 文档</title>
+<link rel="stylesheet" href="/function/common/index.css">
+<link rel="stylesheet" href="/function/common/sidebar.css">
+<link rel="stylesheet" href="/function/api/api.css">
+</head>
+<body>
+<div class="apiwrap">
+  <div class="apicard">
+    <div class="kicker">API / 开发者文档</div>
+    <h1>StudyPad API 用法</h1>
+    <p class="api-sub">study.lovecacx.icu 对外接口一览：进度查询 · OpenClaw 接入 · AI 使用方法</p>
+
+    <nav class="api-nav">
+      <a href="#quick">快速开始</a>
+      <a href="#fields">字段参考</a>
+      <a href="#more">其他接口</a>
+      <a href="#openclaw">接入 OpenClaw</a>
+      <a href="#ai">AI 使用方法</a>
+    </nav>
+
+    <!-- ============ 快速开始 ============ -->
+    <h2 id="quick">① 快速开始 · 进度查询</h2>
+    <p>无需登录：浏览器直接访问 <b>/你的用户名=你的密码</b> 即可查看排版好的进度页（打卡进度 + 英语进度 + 今日需学/待复习/已学 + 全部单词本）。</p>
+    <pre class="code" data-code>https://study.lovecacx.icu/你的用户名=你的密码</pre>
+    <p>程序调用（curl / 脚本 / AI 助手）返回 JSON：</p>
+    <pre class="code" data-code>curl -s "https://study.lovecacx.icu/你的用户名=你的密码"</pre>
+    <p>可选参数：<code>?pretty=1</code> 缩进 JSON（人看）· <code>?json=1</code> 强制 JSON（浏览器下跳过进度页视图）。</p>
+    <p class="api-warn">⚠ 密码会留在浏览器历史 / 命令记录里，建议单独设一个低敏密码，勿用重要密码。</p>
+
+    <!-- ============ 字段参考 ============ -->
+    <h2 id="fields">② 返回字段参考</h2>
+    <table class="api-t">
+      <tr><th>访问</th><td><code>GET /用户名=密码</code>（即本站地址 + 账号）——程序访问返回 JSON；浏览器打开显示进度页</td></tr>
+      <tr><th>鉴权</th><td>用户名+密码与登录一致（scrypt 校验），错误返回 <code>401 {"error":"用户名或密码错误"}</code>；密码含 <code>=</code> 时按第一个 <code>=</code> 拆分</td></tr>
+    </table>
+    <h3>checkin —— 打卡学习进度</h3>
+    <table class="api-t">
+      <tr><th>day / status</th><td>当前天数 / 「Day N」「未启程」「已结束」</td></tr>
+      <tr><th>phase / sub</th><td>当前阶段与子阶段（如 1.1 筑基起步）</td></tr>
+      <tr><th>start / today</th><td>开学日期 / 服务器今日日期（yyyy-mm-dd）</td></tr>
+      <tr><th>doneN / total / percent</th><td>已打卡任务数 / 全周期 596 / 百分比</td></tr>
+      <tr><th>done</th><td>已打卡任务 id 数组（排序）</td></tr>
+    </table>
+    <h3>english —— 英语学习进度</h3>
+    <table class="api-t">
+      <tr><th>统计</th><td><code>words</code> 词库数 · <code>strong</code> 已巩固 · <code>learning</code> 学习中 · <code>fresh</code> 生词 · <code>due</code> 待复习 · <code>answers{ok,ng}</code> 累计对错</td></tr>
+      <tr><th>词书</th><td><code>bookCursor</code> 游标 / 1506 · <code>dailyNew</code> 每日新词量 · <code>today{n,r}</code> 今日新学/复习 · <code>days</code> 记录天数 · <code>newSum/reviewSum</code> 累计 · <code>dailyLog</code> 每日日志全量</td></tr>
+      <tr><th>todayNew</th><td>今日需学单词 <code>[{w, idx}]</code>——从词书游标起 ≤dailyNew 个未收录词（与站内页逻辑同口径）</td></tr>
+      <tr><th>todayLearned</th><td>今日已学 <code>[{w, s, due?}]</code>——今天新收进词库的词</td></tr>
+      <tr><th>dueWords</th><td>今日待复习 <code>[{w, s, due}]</code>——到期词，按到期日升序</td></tr>
+      <tr><th>book</th><td>全部单词本 1506 词（按《樱日常》文章顺序），每词 <code>{w, s, due?}</code></td></tr>
+      <tr><th>extra</th><td>词书外收录的词（故事专名等）</td></tr>
+    </table>
+    <p>单词状态 <code>s</code>：<b>未学习</b> / <b>待复习</b> / <b>第N轮</b> / <b>已巩固</b>；<code>due</code> 为到期日 yyyy-mm-dd（已巩固不带）。</p>
+    <details class="api-fold">
+      <summary>响应示例（节选）</summary>
+      <pre class="code" data-code>{
+  "ok": true,
+  "user": { "username": "can", "displayName": "Can" },
+  "checkin": {
+    "day": 12, "status": "Day 12",
+    "phase": { "no": "1", "name": "第一阶段 · 系统学习" },
+    "sub": { "no": "1.1", "name": "筑基起步" },
+    "doneN": 58, "total": 596, "percent": 10,
+    "done": ["w1", "w2-rd", "..."]
+  },
+  "english": {
+    "words": 320, "strong": 150, "learning": 120, "fresh": 50, "due": 18,
+    "answers": { "ok": 2100, "ng": 340 },
+    "bookCursor": 402, "dailyNew": 20,
+    "today": { "n": 20, "r": 35 },
+    "todayNew":  [ { "w": "april", "idx": 0 }, { "w": "morning", "idx": 1 } ],
+    "dueWords":  [ { "w": "banana", "s": "待复习", "due": "2026-09-24" } ],
+    "book":      [ { "w": "april", "s": "已巩固" }, { "w": "morning", "s": "第3轮", "due": "2026-09-26" } ],
+    "dailyLog": { "2026-09-23": { "n": 20, "r": 35 } }
+  },
+  "updatedAt": { "checkin": 1758600000000, "vocab": 1758600100000 }
+}</pre>
+    </details>
+
+    <!-- ============ 其他接口 ============ -->
+    <h2 id="more">③ 其他接口</h2>
+    <table class="api-t">
+      <tr><th>GET /api/users</th><td>公开：全部用户昵称与已背词数 vc（打卡页同学面板用）</td></tr>
+      <tr><th>GET /api/visits?page=key</th><td>公开：页面浏览量（<code>POST /api/visits</code> 自增）</td></tr>
+      <tr><th>GET /api/avatar/:username</th><td>公开：用户头像图片</td></tr>
+      <tr><th>登录态接口</th><td><code>POST /api/register</code> · <code>/api/login</code> · <code>/api/logout</code> · <code>GET /api/me</code> · <code>POST /api/progress</code> · <code>GET/POST /api/vocab</code> · <code>GET /api/vocab/due</code>——需先登录拿 Cookie 会话，供站内页面使用</td></tr>
+    </table>
+
+    <!-- ============ OpenClaw ============ -->
+    <h2 id="openclaw">④ 接入 OpenClaw</h2>
+    <p><b>OpenClaw</b>（开源个人 AI 助手，原 Clawdbot / Moltbot）可以接微信 / Telegram / WhatsApp 等聊天软件，支持自定义技能（Skill）和定时任务（cron）。把它接入本站后，你可以直接在聊天里问「我的学习进度怎么样」，或让 AI 每天早上自动播报今日任务。</p>
+    <h3>第 1 步：新建技能</h3>
+    <p>在 <code>~/.openclaw/skills/</code> 下新建 <code>studypad/</code> 目录，写入 <code>SKILL.md</code>：</p>
+    <pre class="code" data-code>---
+name: studypad
+description: 查询体育单招备考站的学习进度（打卡 + 英语单词）
+---
+
+# StudyPad 进度查询
+
+当用户问「我的学习进度 / 打卡 / 单词情况」时：
+
+1. 运行：curl -s "https://study.lovecacx.icu/你的用户名=你的密码?json=1"
+2. 根据返回 JSON 回答：
+   - 打卡：checkin.status / phase / doneN / percent
+   - 今日任务：english.todayNew（需学）、english.dueWords（待复习）
+   - 词库：english.strong 已巩固 / learning 学习中 / fresh 生词
+3. 字段含义见 https://study.lovecacx.icu/api/</pre>
+    <h3>第 2 步：对话中使用</h3>
+    <p>重启 OpenClaw 后直接说：「用 studypad 查一下我的学习进度」「我今天要背哪些单词？」</p>
+    <h3>第 3 步（可选）：每天定时播报</h3>
+    <pre class="code" data-code>openclaw cron add --name "studypad-morning" \
+  --schedule "0 8 * * *" \
+  --prompt "用 studypad 技能查询我的学习进度，把今日需学单词和待复习单词列出来，用一句话鼓励我开始学习"</pre>
+    <p class="api-note">命令以你安装的 OpenClaw 版本文档为准；技能里的账号密码请妥善保管。</p>
+
+    <!-- ============ AI 使用方法 ============ -->
+    <h2 id="ai">⑤ AI 使用方法</h2>
+    <h3>方法一：把 JSON 直接喂给 AI</h3>
+    <p>打开进度页链接加 <code>?pretty=1</code>，复制 JSON，粘贴给任意 AI（Claude / ChatGPT / 豆包…）配上这段话：</p>
+    <pre class="code" data-code>你是我的备考教练。下面是我学习站的实时进度 JSON：
+（粘贴这里）
+请：1) 一句话点评我的打卡状态
+    2) 列出我今天的任务（需学 + 待复习）
+    3) 结合 dueWords 给一个 30 分钟复习顺序
+    4) 根据正确率（answers.ok/ng）给一条改进建议</pre>
+    <h3>方法二：命令行 + jq 提取</h3>
+    <pre class="code" data-code># 打卡百分比
+curl -s "https://study.lovecacx.icu/用户名=密码" | jq '.checkin.percent'
+# 今日待复习的单词（每行一个）
+curl -s "https://study.lovecacx.icu/用户名=密码" | jq -r '.english.dueWords[].w'
+# 今日需学前 5 个
+curl -s "https://study.lovecacx.icu/用户名=密码" | jq -r '.english.todayNew[].w' | head -5</pre>
+    <h3>方法三：手机自动化</h3>
+    <p>iOS 快捷指令 / Android Tasker / MacroDropy 定时执行 GET 请求，把 <code>todayNew</code>、<code>dueWords</code> 解析成系统通知——每天早上自动提醒今日任务。</p>
+    <h3>方法四：周报生成</h3>
+    <p>接口里的 <code>dailyLog</code>（每日新学/复习量全量）+ <code>days</code>（连续记录天数）可以让 AI 生成学习周报、趋势分析和下一阶段计划。</p>
+
+    <a class="backlink" href="/">← 返回打卡清单</a>
+  </div>
+</div>
+<script src="/function/common/sidebar.js"></script>
+<script src="/function/api/api.js"></script>
+</body>
+</html>

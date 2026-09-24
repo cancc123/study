@@ -1,0 +1,72 @@
+/* ============================================================
+   语文复习页 · 样式（与打卡清单/单词页同一设计语言，token 来自 common/index.css）
+   ============================================================ */
+
+/* ============ 头部（磨砂玻璃 + 阅读进度条） ============ */
+.eh{position:sticky;top:0;z-index:50;background:var(--topbar-bg);-webkit-backdrop-filter:var(--blur-strong);backdrop-filter:var(--blur-strong);border-bottom:1px solid var(--gline-soft);box-shadow:var(--gedge),0 10px 30px -20px rgba(28,25,23,.3);margin:0 -20px;padding:14px 20px 10px;border-radius:0 0 var(--r-l) var(--r-l);}
+@media (max-width:640px){.eh{margin:0 -12px;padding:12px 14px 8px;}}
+.eh-row{display:flex;align-items:center;gap:12px;}
+.eh .titles{flex:1;min-width:0;}
+.eh h1{font-size:19px;font-weight:800;letter-spacing:.02em;line-height:1.35;margin-top:1px;}
+.eh .stat{white-space:nowrap;}
+.cread{height:3px;background:var(--ink-ghost);border-radius:2px;overflow:hidden;margin-top:9px;}
+.cread i{display:block;height:100%;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .12s linear;}
+
+/* ============ 页签（分段式，同单词页） ============ */
+.etabs{display:flex;gap:4px;margin:14px 0 12px;background:var(--chip);border:1px solid var(--gline-soft);box-shadow:inset 0 1px 0 var(--ghl);border-radius:12px;padding:4px;}
+.etabs button{flex:1;font-family:var(--sans);font-size:13px;font-weight:700;color:var(--muted);background:none;border:1px solid transparent;border-radius:9px;padding:8px 4px;cursor:pointer;transition:color .15s var(--ease-out),background-color .15s var(--ease-out),border-color .15s var(--ease-out);}
+.etabs button.on{color:var(--accent);background:var(--accent-glass);border-color:var(--accent-line);}
+.etabs button:active{transform:scale(.97);}
+
+/* ============ 章节 chip 行（横向滚动） ============ */
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.chips::-webkit-scrollbar{display:none;}
+.chips button{flex-shrink:0;font-family:var(--sans);font-size:12px;font-weight:700;color:var(--muted);background:var(--chip);border:1px solid var(--gline-soft);border-radius:999px;padding:6px 13px;cursor:pointer;transition:color .15s var(--ease-out),background-color .15s var(--ease-out),border-color .15s var(--ease-out);white-space:nowrap;}
+.chips button.on{color:var(--accent);background:var(--accent-glass);border-color:var(--accent-line);}
+.chips button:active{transform:scale(.96);}
+.chips button .no{font-family:var(--mono);font-size:10px;font-weight:700;margin-right:4px;opacity:.75;}
+
+/* ============ 章内目录 ============ */
+.ctoc{margin:0 0 12px;background:var(--sun);border:1px solid var(--line);border-radius:var(--r-m);}
+.ctoc summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--muted);padding:9px 14px;transition:color .15s var(--ease-out);}
+.ctoc summary::-webkit-details-marker{display:none;}
+.ctoc summary::after{content:"";width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg);margin-left:auto;transition:transform .2s var(--ease-out);flex-shrink:0;}
+.ctoc[open] summary::after{transform:rotate(-135deg);}
+.ctoc-body{padding:2px 14px 10px;display:flex;flex-direction:column;}
+.ctoc-body a{font-size:12.5px;color:var(--ink-soft);text-decoration:none;padding:5px 0;border-top:1px solid var(--line);transition:color .15s var(--ease-out);}
+.ctoc-body a:first-child{border-top:none;}
+@media (hover:hover) and (pointer:fine){.ctoc-body a:hover{color:var(--accent);}}
+
+/* ============ 正文排版 ============ */
+.cbody{background:var(--glass);border:1px solid var(--gline);border-radius:16px;padding:18px 20px 20px;box-shadow:var(--gshadow),var(--gedge);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);animation:creveal .18s var(--ease-out);position:relative;overflow:hidden;}
+@keyframes creveal{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+.cbody .ch-title{font-size:17px;font-weight:800;line-height:1.4;padding-bottom:10px;margin-bottom:14px;border-bottom:1px solid var(--line);}
+.cbody h3{font-size:14.5px;font-weight:800;color:var(--ink);margin:20px 0 8px;padding-left:9px;border-left:3px solid var(--accent);line-height:1.5;}
+.cbody h4{font-size:13.5px;font-weight:700;color:var(--ink-soft);margin:14px 0 6px;line-height:1.5;}
+.cbody p{font-size:14px;line-height:1.85;color:var(--ink-soft);margin:0 0 8px;overflow-wrap:break-word;}
+.cbody p.cli{padding-left:1.35em;text-indent:-1.35em;}
+.cbody b{font-weight:800;color:var(--ink);}
+.cbody u{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:1.5px;text-underline-offset:3px;}
+.cbody table{width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:12.5px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden;}
+.cbody th{background:var(--sun);font-weight:800;color:var(--ink-soft);text-align:left;}
+.cbody th,.cbody td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:7px 9px;line-height:1.6;vertical-align:top;}
+.cbody th:last-child,.cbody td:last-child{border-right:none;}
+.cbody tr:last-child td{border-bottom:none;}
+.cbody .empty{color:var(--faint);font-size:13px;text-align:center;padding:26px 10px;background:var(--sun);border:1px dashed var(--line-strong);border-radius:var(--r-m);}
+
+/* ============ 上一章 / 下一章 ============ */
+.cnav{display:flex;gap:8px;margin:12px 0 0;}
+.cnav .gbtn{flex:1;}
+.cnav .gbtn[disabled]{opacity:.35;cursor:default;pointer-events:none;}
+.gbtn{font-family:var(--sans);font-size:12.5px;font-weight:700;color:var(--ink-soft);background:var(--chip);border:1px solid var(--gline);box-shadow:inset 0 1px 0 var(--ghl);border-radius:var(--r-s);padding:9px 14px;cursor:pointer;transition:border-color .15s var(--ease-out),transform .12s var(--ease-out),background-color .15s var(--ease-out);}
+.gbtn:active{transform:scale(.96);}
+@media (hover:hover) and (pointer:fine){.gbtn:hover{border-color:var(--ink-soft);background:var(--chip-hover);}}
+
+/* ============ 返回顶部（避开右下角 theme-fab：置于其正上方） ============ */
+.totop{position:fixed;right:14px;bottom:calc(62px + env(safe-area-inset-bottom,0px));z-index:60;width:40px;height:40px;border-radius:50%;border:1px solid var(--gline);background:var(--tip-bg);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:var(--gshadow),var(--gedge);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s var(--ease-out),transform .2s var(--ease-out);}
+.totop.show{opacity:1;pointer-events:auto;transform:none;}
+.totop svg{width:18px;height:18px;}
+.totop:active{transform:scale(.9);}
+
+/* 暗色下正文投影与表格底色微调（token 已由 index.css 覆盖） */
+html[data-theme="dark"] .cbody{box-shadow:var(--gshadow),var(--gedge);}

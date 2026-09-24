@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#faf9f7">
+<script src="/function/common/theme.js"></script>
+<title>语文复习 · 体育单招备考</title>
+<link rel="stylesheet" href="/function/common/index.css">
+<link rel="stylesheet" href="/function/common/sidebar.css">
+<link rel="stylesheet" href="chinese.css">
+</head>
+<body>
+<div class="page">
+
+<header class="eh">
+  <div class="eh-row">
+    <div class="titles">
+      <div class="kicker">CHINESE / REVIEW</div>
+      <h1>语文复习</h1>
+    </div>
+    <div class="stat" id="chMeta"></div>
+  </div>
+  <div class="cread"><i id="creadBar"></i></div>
+</header>
+
+<nav class="etabs" id="ctabs" aria-label="资料分区">
+  <button type="button" data-part="tech" class="on">技巧讲解</button>
+  <button type="button" data-part="outline">考试大纲</button>
+  <button type="button" data-part="appendix">附录素材</button>
+</nav>
+
+<div class="chips" id="chips" role="tablist" aria-label="章节"></div>
+
+<main>
+  <details class="ctoc" id="ctoc" hidden>
+    <summary>本章节目录</summary>
+    <div class="ctoc-body" id="ctocBody"></div>
+  </details>
+  <article class="cbody" id="cbody"></article>
+  <div class="cnav" id="cnav">
+    <button type="button" class="gbtn" id="cprev">上一章</button>
+    <button type="button" class="gbtn" id="cnext">下一章</button>
+  </div>
+</main>
+
+</div>
+
+<button type="button" class="totop" id="toTop" aria-label="返回顶部" title="返回顶部">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>
+</button>
+
+<script src="/function/chinese/chinese-data.js"></script>
+<script src="/function/common/sidebar.js"></script>
+<script src="/function/chinese/chinese.js"></script>
+</body>
+</html>
